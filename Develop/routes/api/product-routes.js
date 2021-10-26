@@ -7,12 +7,26 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
+  try{
+    const allProducts = await Product.findAll({include: [ProductTag, Category]});
+    res.json(allProducts)
+  }
+  catch(error) {
+    res.status(500).json(error)
+  }
 });
 
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
+  try{
+    const oneProduct = await Product.findByPk({include: [ProductTag, Category]});
+    res.json(oneProduct)
+  }
+  catch(error) {
+    res.status(500).json(error)
+  }
 });
 
 // create new product
@@ -91,6 +105,13 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  const deletedProduct = await Product.destroy({
+    where: {
+      id: req.body.id,
+    },
+  });
+
+  res.json(deletedCategory)
 });
 
 module.exports = router;
