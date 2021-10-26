@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // find all products
   // be sure to include its associated Category and Tag data
   try{
-    const allProducts = await Product.findAll({include: [ProductTag, Category]});
+    const allProducts = await Product.findAll({include: [Tag, Category]});
     res.json(allProducts)
   }
   catch(error) {
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try{
-    const oneProduct = await Product.findByPk({include: [ProductTag, Category]});
+    const oneProduct = await Product.findByPk({include: [Tag, Category]});
     res.json(oneProduct)
   }
   catch(error) {
@@ -111,7 +111,7 @@ router.delete('/:id', (req, res) => {
     },
   });
 
-  res.json(deletedCategory)
+  res.json(deletedProduct)
 });
 
 module.exports = router;
