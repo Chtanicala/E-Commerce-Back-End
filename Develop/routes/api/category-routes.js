@@ -4,7 +4,7 @@ const { beforeBulkDestroy } = require('../../models/Product');
 
 // The `/api/categories` endpoint
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // find all categories
   try{
     const categoryData = await Category.findAll({include: [Product]});
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
   // be sure to include its associated Products
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try{
@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
   Category.create(req.body)
     .then((newCategory) => {
