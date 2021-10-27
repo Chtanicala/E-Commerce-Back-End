@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try{
-    const oneProduct = await Product.findByPk({include: [Tag, Category]});
+    const oneProduct = await Product.findByPk(req.params.id, {include: [Tag, Category]});
     res.json(oneProduct)
   }
   catch(error) {
@@ -107,7 +107,7 @@ router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   const deletedProduct = await Product.destroy({
     where: {
-      id: req.body.id,
+      id: req.params.id,
     },
   });
 
